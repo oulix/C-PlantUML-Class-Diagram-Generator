@@ -23,16 +23,50 @@ namespace PlantUMLCodeGeneratorGUI
 
         private void btnAddFolder_Click(object sender, EventArgs e)
         {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                fbd.SelectedPath = _lastVisitedDirectory ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                fbd.SelectedPath = @"D:\documents\marketdata\include";
-                fbd.Description = "Please select the folder which contains the header files";
+            //using (var fbd = new FolderBrowserDialog())
+            //{
+            //    fbd.SelectedPath = _lastVisitedDirectory ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            //    fbd.SelectedPath = @"D:\documents\marketdata\include";
+            //    fbd.Description = "Please select the folder which contains the header files";
 
-                if (fbd.ShowDialog() == DialogResult.OK && (lstFolderList.Items.Cast<string>().Any(i => i == fbd.SelectedPath) == false))
+            //    if (fbd.ShowDialog() == DialogResult.OK && (lstFolderList.Items.Cast<string>().Any(i => i == fbd.SelectedPath) == false))
+            //    {
+            //        lstFolderList.Items.Add(fbd.SelectedPath);
+            //        _lastVisitedDirectory = fbd.SelectedPath;
+
+            //        btnGenerate.Enabled = true;
+            //    }
+            //}
+
+            /*
+            //using (var fbd = new OpenFileDialog())
+            //{
+            //    fbd.ValidateNames = false;
+            //    fbd.CheckFileExists = false;
+            //    fbd.CheckPathExists = true;                
+            //    fbd.InitialDirectory = _lastVisitedDirectory ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);                
+            //    fbd.Title= "Please select the folder which contains the header files";
+
+            //    if (fbd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        string folderPath = Path.GetDirectoryName(fbd.FileName);
+            //        lstFolderList.Items.Add(folderPath);
+            //        _lastVisitedDirectory = folderPath;
+
+            //        btnGenerate.Enabled = true;
+            //    }
+            //}
+            */
+
+            FolderPicker dlg = new FolderPicker();
+            {
+                dlg.InputPath = @"c:\windows\system32";
+                IntPtr nullptr = IntPtr.Zero;
+                if (dlg.ShowDialog(nullptr, true) == true)
                 {
-                    lstFolderList.Items.Add(fbd.SelectedPath);
-                    _lastVisitedDirectory = fbd.SelectedPath;
+                    string folderPath = dlg.ResultPath;
+                    lstFolderList.Items.Add(folderPath);
+                    _lastVisitedDirectory = folderPath;
 
                     btnGenerate.Enabled = true;
                 }
